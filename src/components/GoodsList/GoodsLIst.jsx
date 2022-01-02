@@ -1,4 +1,4 @@
-import { GoodsItem } from "./GoodsList/GoodsItem"
+import { GoodsItem } from "./GoodsItem"
 
 const GoodsList = (props) => {
     const {goods = [], addToBasket = Function.prototype} = props // по умолчанию массив

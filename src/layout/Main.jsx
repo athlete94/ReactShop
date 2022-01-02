@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
-import { GoodsList } from "../components/GoodsLIst"
+import { GoodsList } from "../components/GoodsList/GoodsLIst"
 import { Preloader } from "../components/Preloader"
 import {API_URL} from "../config"
 import { Cart } from "../components/Cart"
+import { BasketList } from "../components/BasketList/BasketList"
 
 
 
@@ -10,8 +11,8 @@ const Main = () => {
 
     const [goods, setGoods] = useState([]) //список товаров
     const [loading, setLoading] = useState(true) //состояние загрузки
-
     const [order, setOrder] = useState([]) //список заказов
+    const [isBasketShow, setIsBasketShow] = useState(false) //состояние показа корзины
 
     
     // функция добавления товара в корзину
@@ -44,6 +45,11 @@ const Main = () => {
         }      
     }
 
+    // функция показа корзины
+    const handleBasketShow = () => {
+        setIsBasketShow(!isBasketShow)
+    }
+
     useEffect(() => {
         fetch(API_URL,{
             headers: {
@@ -59,8 +65,10 @@ const Main = () => {
     [])
 
     return <div className="content container">
-        <Cart quantity={order.length}/>
+        <Cart quantity={order.length} handleBasketShow={handleBasketShow} />
         {loading ? <Preloader /> : <GoodsList goods={goods} addToBasket={addToBasket} />}
+
+        {isBasketShow && <BasketList order={order} handleBasketShow={handleBasketShow} />}
     </div>
 }
 
