@@ -44,6 +44,11 @@ const Main = () => {
             
         }      
     }
+    // функция удаления товара из корзины
+    const removeFromBasket = (id) => {
+        const newOrder = order.filter((el) => el.id != id)
+        setOrder(newOrder)
+    }
 
     // функция показа корзины
     const handleBasketShow = () => {
@@ -68,7 +73,10 @@ const Main = () => {
         <Cart quantity={order.length} handleBasketShow={handleBasketShow} />
         {loading ? <Preloader /> : <GoodsList goods={goods} addToBasket={addToBasket} />}
 
-        {isBasketShow && <BasketList order={order} handleBasketShow={handleBasketShow} />}
+        {isBasketShow && <BasketList 
+                            order={order} 
+                            handleBasketShow={handleBasketShow}
+                            removeFromBasket={removeFromBasket} />}
     </div>
 }
 
